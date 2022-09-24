@@ -3,7 +3,7 @@
  import {createAccount,signIn,signout} from './auth.js'
 import { showErrorMessage } from './helper.js'
 
-import { tradingDetailsForm } from './app.js'
+import { tradingDetailsForm ,ViewTradeDetails} from './app.js'
 
 
  function createNav() {
@@ -30,6 +30,7 @@ export  function showApp()  {
 
         let app = document.createElement('div')
         app.setAttribute('id','app')
+        app.append(createNav())
         let signOutButton = document.createElement('button')
         signOutButton.innerHTML= 'sign out'
 
@@ -37,8 +38,10 @@ export  function showApp()  {
             signout()
         })
         app.append(signOutButton)
-        app.append(createNav())
+        
          app.append(tradingDetailsForm())
+
+         app.append(ViewTradeDetails())
         document.getElementById('root').append(app)
 
 }
@@ -61,10 +64,11 @@ export  function showLogin(){
 
     let form =  document.createElement('form')
     let emailInput = document.createElement('input')
+    emailInput.setAttribute('type' , "email")
 
     form.append(emailInput)
     let passwordInput = document.createElement('input')
-
+    passwordInput.setAttribute('type' , 'password')
     form.append(passwordInput)
 
     let logInButton = document.createElement('button')
@@ -87,7 +91,7 @@ export  function showLogin(){
 }
 
 export  function hideLogin() {
-    console.log('hide login')
+ 
     let logindiv = document.getElementById('logIn')
     if (logindiv){
     logindiv.style.display= 'none'
@@ -140,7 +144,7 @@ export  function showSignUp(){
 
 
 export  function hideSignUp(){
-    console.log('hidesignup')
+    
 
    let signUpdiv = document.getElementById('signUp')
    if (signUpdiv){

@@ -1,7 +1,17 @@
+import { 
+    addDocumentToCollection , 
+    getDocuments, 
+        } from './database.js'
+
+import { auth } from './index.js'
+
+
 export function tradingDetailsForm(){
 
     let addTradeDetails = document.createElement('div')
-
+    let title = document.createElement('p')
+    title.innerHTML = 'Add Trade details'
+    addTradeDetails.append(title)
     let form = document.createElement('form')
     form.setAttribute('name','addTradeDetails')
     let nameOfStock = document.createElement('input')
@@ -31,9 +41,45 @@ export function tradingDetailsForm(){
     addButton.addEventListener('click' ,(e)=>{
         e.preventDefault()
         console.log(sellingPrice.value,buyingPrice.value,nameOfStock.value,date.value)
+        addDocumentToCollection('trade' ,{
+           "selling price": sellingPrice.value,
+           "buying price" :buyingPrice.value,
+           'name ':nameOfStock.value,
+           'date' : date.value,
+            'userId' :  auth.currentUser.uid
+        }
+        )
     })
 
     addTradeDetails.append(form)
     return addTradeDetails
 
+}
+
+
+function createTableRow(obj){
+ 
+    let tr  = document.createElement('tr')
+
+    for (let i = 0 ;i< obj.length ; i++) {
+        let td = document.createElement('td')
+        td.innerHTML = obj[i]
+        tr.append(td)
+    }
+
+    return tr
+}
+export function ViewTradeDetails() {
+    
+    let TradeDetails = document.createElement('div')
+    let title = document.createElement('p')
+    title.innerHTML = 'Trade   Details'
+    TradeDetails.append(title)
+
+    let tradeTable = document.createElement('table')
+    
+    tradeTable.append( createTableRow(['name' ,'buying price', 'selling price']))
+
+    TradeDetails.append(tradeTable)
+    return TradeDetails
 }

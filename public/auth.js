@@ -26,7 +26,7 @@ export function createAccount(email,password,conformPassword) {
       });
     }
   else {
-    showErrorMessage('password mismatch')
+    alert('password mismatch')
   }
 }
 
@@ -41,7 +41,7 @@ export function signIn(email,password){
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        showErrorMessage(errorCode)
+        alert(errorCode)
       });
 }
 

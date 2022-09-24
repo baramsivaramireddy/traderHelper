@@ -24,7 +24,7 @@
         
     } from './ui.js'
 
- 
+ import { getDocuments } from "./database.js";
  // Your web app's Firebase configuration
  const firebaseConfig = {
    apiKey: "AIzaSyDr1fNDRp_XMJHmqrmEhQyLpi3KxF-7rLQ",
@@ -35,6 +35,8 @@
    messagingSenderId: "1060907552506",
    appId: "1:1060907552506:web:e3e6552b43d6f93e3b8343"
  };
+
+
 
  // Initialize Firebase
  export const app = initializeApp(firebaseConfig);
@@ -61,5 +63,8 @@
       showSignUp()
     }
   });
+
+
   
 
+getDocuments('trade')
