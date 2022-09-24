@@ -50,9 +50,14 @@ export function hideApp() {
     }
 }
 export  function showLogin(){
-    console.log('login')
+    
     let logInDiv = document.createElement('div')
     logInDiv.setAttribute('id','logIn')
+
+    let loginTitle = document.createElement('p')
+    
+    loginTitle.innerHTML = "Log In"
+    logInDiv.append(loginTitle)
 
     let form =  document.createElement('form')
     let emailInput = document.createElement('input')
@@ -69,7 +74,7 @@ export  function showLogin(){
 
     logInButton.addEventListener('click',(e)=> {
         e.preventDefault()
-        console.log('hello')
+        
         signIn(emailInput.value,passwordInput.value)
     })
     form.append(logInButton)
@@ -91,9 +96,13 @@ export  function hideLogin() {
 
 
 export  function showSignUp(){
-            console.log('signup')
+         
             let signUpDiv = document.createElement('div')
             signUpDiv.setAttribute('id','signUp')
+
+            let signUpTitle = document.createElement('p')
+            signUpTitle.innerHTML = 'sign Up '
+            signUpDiv.append(signUpTitle)
             let form =  document.createElement('form')
             let emailInput = document.createElement('input')
             emailInput.setAttribute('type' ,'email')

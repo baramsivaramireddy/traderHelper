@@ -1,5 +1,3 @@
-
-
 export function tradingDetailsForm(){
 
     let addTradeDetails = document.createElement('div')
