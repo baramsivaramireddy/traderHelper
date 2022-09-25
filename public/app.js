@@ -6,23 +6,25 @@ import {
    import { showErrorMessage } from './helper.js'
 
 import { 
-    doc,
-    getDoc,
-    collection,
-     addDoc,
-     getDocs,
-     query,
-      where, 
-      limit ,
+        doc,
+        getDoc,
+        collection,
+        addDoc,
+        getDocs,
+        query,
+        where, 
+        limit ,
   } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js";
 
 import {db,app  } from './index.js'
 function emptyElement(element){
-    
-    while (element.childElementCount > 0)
+    if (element.childElementCount){
+        while (element.childElementCount > 0)
     {
       element.firstChild.remove()
     }
+    }
+    
   }
 
 export function tradingDetailsForm(){
@@ -91,7 +93,10 @@ export function tradingDetailsForm(){
            'date' : date.value,
             
         }
+        
         )
+        emptyElement(document.getElementById('root'))
+        
     })
 
     addTradeDetails.append(form)
@@ -131,7 +136,7 @@ function   TradeDetails() {
     
 
     let tradeTable = document.createElement('table')
-    emptyElement(tradeTable)
+    tradeTable.setAttribute('class','tradeTable')
     tradeTable.setAttribute('class','table table-bordered mx-5  mr-5 table-sm  table-responsive')
     
     tradeTable.append( createTableHead(['name' ,'buying price', 'selling price','date']))
@@ -144,6 +149,7 @@ function   TradeDetails() {
              console.log(obj[key])
                 tradeTable.append(createTableRow([obj[key]['name'] ,obj[key]['buyingPrice'], obj[key]['sellingPrice'] , obj[key]['date']]))
             })
+            emptyElement(document.getElementsByClassName('tradeTable'))
             
         }
      )
@@ -151,6 +157,7 @@ function   TradeDetails() {
    catch {
     tradeTable.append(createTableRow([' ' ,' ', ' ']))
    }
+   
  return tradeTable
 }
 
@@ -170,8 +177,12 @@ export function  ViewTradeDetails(){
     showButton.setAttribute('class','btn mx-3  btn-outline-dark')
 
     showButton.addEventListener('click' , ()=>{
+   
         
         TradeDetail.append(TradeDetails())
+       
+      
+
     })
     TradeDetail.append(showButton)
     return TradeDetail

@@ -1,12 +1,12 @@
 import { 
-    doc,
-    getDoc,
-    collection,
-     addDoc,
-     getDocs,
-     query,
-      where, 
-      limit ,
+        doc,
+        getDoc,
+        collection,
+        addDoc,
+        getDocs,
+        query,
+        where, 
+        limit ,
   } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js";
 
   import {showErrorMessage} from "./helper.js"
@@ -27,6 +27,7 @@ export async function addDocumentToCollection(collectionName,Document){
 
             console.error("Error adding document: ", e);
         }
+        location.reload()
 }
 
 
@@ -34,7 +35,7 @@ export async function addDocumentToCollection(collectionName,Document){
 export async function getDocuments( collectionName){
 
 
-    const q = query(collection(db, `users/${auth.currentUser.uid}/${collectionName}`),limit(10));
+    const q = query(collection(db, `users/${auth.currentUser.uid}/${collectionName}`));
 
         const querySnapshot = await getDocs(q);
         let obj = {}

@@ -4,7 +4,9 @@ import {auth} from './index.js'
 import { 
   signOut,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail  ,
+  sendEmailVerification
 } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
 
 
@@ -24,10 +26,17 @@ export function createAccount(email,password,conformPassword) {
         const errorMessage = error.message;
         showErrorMessage(errorCode)
       });
+      sendEmailVerification(auth.currentUser).then(
+        ()=> {
+          console.log('mail sent')
+          showErrorMessage('sent email verification succefully')
+        }
+      )
     }
   else {
-    alert('password mismatch')
+    showErrorMessage('password mismatch')
   }
+  
 }
 
 
@@ -41,8 +50,9 @@ export function signIn(email,password){
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        alert(errorCode)
+        showErrorMessage(errorCode)
       });
+      
 }
 
 export function signout() {
@@ -53,4 +63,20 @@ export function signout() {
     showErrorMessage('error occured')
   });
   
+}
+
+export function passwordReset(email) {
+  
+  sendPasswordResetEmail(auth, email)
+  .then(() => {
+    // Password reset email sent!\
+    showErrorMessage('password reset mail was sent')
+    // ..
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    showErrorMessage('error occured while sending password reset mail' )
+    // ..
+  });
 }

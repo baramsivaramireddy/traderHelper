@@ -54,10 +54,10 @@
         showApp()
         hideLogin()
         hideSignUp()
-      
+  
     } else {
       // User is signed out
-
+     
       hideApp()
       showLogin()
       showSignUp()
