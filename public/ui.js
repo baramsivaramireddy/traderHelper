@@ -8,14 +8,13 @@ import { tradingDetailsForm ,ViewTradeDetails,monthlyCharts} from './app.js'
 
  function createNav() {
     let nav = document.createElement('nav')
-    let title = document.createElement('h1')
-    title.innerHTML = 'trader helper'
+   
 
     let errorMessage = document.createElement('p')
     errorMessage.setAttribute('id','errorMessage')
     errorMessage.style.color='red'
     nav.append(errorMessage)
-    nav.appendChild(title)
+    
     return nav
    
 
@@ -31,9 +30,11 @@ export  function showApp()  {
         let app = document.createElement('div')
         app.setAttribute('id','app')
         app.append(createNav())
-        let signOutButton = document.createElement('button')
-        signOutButton.innerHTML= 'sign out'
+        let signOutButton = document.createElement('div')
 
+        signOutButton.innerHTML= 'sign out'
+        
+        signOutButton.setAttribute('class','btn btn-outline-danger')
         signOutButton.addEventListener('click' ,()=>{
             signout()
         })
@@ -58,25 +59,25 @@ export  function showLogin(){
     let logInDiv = document.createElement('div')
     logInDiv.setAttribute('id','logIn')
 
-    let loginTitle = document.createElement('p')
-    
-    loginTitle.innerHTML = "Log In"
-    logInDiv.append(loginTitle)
 
     let form =  document.createElement('form')
     let emailInput = document.createElement('input')
     emailInput.setAttribute('type' , "email")
+    emailInput.setAttribute('placeholder', 'email')
+    emailInput.setAttribute('class','form-control')
 
     form.append(emailInput)
     let passwordInput = document.createElement('input')
     passwordInput.setAttribute('type' , 'password')
+    passwordInput.setAttribute('placeholder', 'password')
+    passwordInput.setAttribute('class','form-control')
     form.append(passwordInput)
 
-    let logInButton = document.createElement('button')
+    let logInButton = document.createElement('div')
     logInButton.innerHTML ="Log In"
     logInButton.setAttribute('id','logInButton')
-
-
+    logInButton.setAttribute('class','btn btn-primary')
+    logInButton.classList.add('mx-auto')
     logInButton.addEventListener('click',(e)=> {
         e.preventDefault()
         
@@ -106,30 +107,36 @@ export  function showSignUp(){
             signUpDiv.setAttribute('id','signUp')
 
             let signUpTitle = document.createElement('p')
-            signUpTitle.innerHTML = 'sign Up '
+            signUpTitle.innerHTML = 'sign Up'
             signUpDiv.append(signUpTitle)
             let form =  document.createElement('form')
             let emailInput = document.createElement('input')
             emailInput.setAttribute('type' ,'email')
+            emailInput.setAttribute('placeholder' ,'email')
+            emailInput.setAttribute('class' ,'form-control')
             emailInput.setAttribute('name','email')
             form.append(emailInput)
 
             let passwordInput = document.createElement('input')
             passwordInput.setAttribute('type','password')
             passwordInput.setAttribute('name','password')
-
+            passwordInput.setAttribute('placeholder','password')
+            passwordInput.setAttribute('class' ,'form-control')
             form.append(passwordInput)
 
             let conformPasswordInput = document.createElement('input')
             conformPasswordInput.setAttribute('type','password')
             conformPasswordInput.setAttribute('name','conformPassword')
+            conformPasswordInput.setAttribute('placeholder','conform password')
+            conformPasswordInput.setAttribute('class','form-control')
 
 
             form.append(conformPasswordInput)
             
-            let SingUpButton = document.createElement('button')
+            let SingUpButton = document.createElement('div')
             SingUpButton.innerHTML ="sign Up"
 
+            SingUpButton.setAttribute('class','btn btn-primary')
            
             SingUpButton.addEventListener('click' ,(e)=>{
                 e.preventDefault()
