@@ -15,7 +15,7 @@ import {
 
 
 export async function addDocumentToCollection(collectionName,Document){
-    let collectionRef = collection(db, collectionName)
+    let collectionRef = collection(db, `users/${auth.currentUser.uid}/${collectionName}`)
             
         try {
             const docRef = await addDoc(collectionRef, Document);
@@ -31,17 +31,19 @@ export async function addDocumentToCollection(collectionName,Document){
 
 
 
-export async function getDocuments(collectionName){
+export async function getDocuments( collectionName){
 
 
-    const q = query(collection(db, collectionName),limit(10));
+    const q = query(collection(db, `users/${auth.currentUser.uid}/${collectionName}`),limit(10));
 
         const querySnapshot = await getDocs(q);
+        let obj = {}
         querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
+       obj[doc.id]=doc.data()
+            
         });
- 
+        
+        return obj
 }
 
 

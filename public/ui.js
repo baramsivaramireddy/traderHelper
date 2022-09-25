@@ -3,7 +3,7 @@
  import {createAccount,signIn,signout} from './auth.js'
 import { showErrorMessage } from './helper.js'
 
-import { tradingDetailsForm ,ViewTradeDetails} from './app.js'
+import { tradingDetailsForm ,ViewTradeDetails,monthlyCharts} from './app.js'
 
 
  function createNav() {
@@ -42,6 +42,7 @@ export  function showApp()  {
          app.append(tradingDetailsForm())
 
          app.append(ViewTradeDetails())
+         app.append(monthlyCharts())
         document.getElementById('root').append(app)
 
 }

@@ -1,9 +1,20 @@
 import { 
     addDocumentToCollection , 
-    getDocuments, 
-        } from './database.js'
+    getDocuments
+   } from './database.js'
 
-import { auth } from './index.js'
+import { 
+    doc,
+    getDoc,
+    collection,
+     addDoc,
+     getDocs,
+     query,
+      where, 
+      limit ,
+  } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js";
+
+import {db,app  } from './index.js'
 
 
 export function tradingDetailsForm(){
@@ -42,11 +53,11 @@ export function tradingDetailsForm(){
         e.preventDefault()
         console.log(sellingPrice.value,buyingPrice.value,nameOfStock.value,date.value)
         addDocumentToCollection('trade' ,{
-           "selling price": sellingPrice.value,
-           "buying price" :buyingPrice.value,
-           'name ':nameOfStock.value,
+           "sellingPrice": sellingPrice.value,
+           "buyingPrice" :buyingPrice.value,
+           'name':nameOfStock.value,
            'date' : date.value,
-            'userId' :  auth.currentUser.uid
+            
         }
         )
     })
@@ -54,6 +65,20 @@ export function tradingDetailsForm(){
     addTradeDetails.append(form)
     return addTradeDetails
 
+}
+
+
+function createTableHead(obj){
+ 
+    let th = document.createElement('th')
+
+    for (let i = 0 ;i< obj.length ; i++) {
+        let td = document.createElement('td')
+        td.innerHTML = obj[i]
+        th.append(td)
+    }
+
+    return th
 }
 
 
@@ -68,18 +93,95 @@ function createTableRow(obj){
     }
 
     return tr
-}
-export function ViewTradeDetails() {
+} 
+
+function   TradeDetails() {
     
-    let TradeDetails = document.createElement('div')
-    let title = document.createElement('p')
-    title.innerHTML = 'Trade   Details'
-    TradeDetails.append(title)
 
     let tradeTable = document.createElement('table')
     
-    tradeTable.append( createTableRow(['name' ,'buying price', 'selling price']))
+    tradeTable.append( createTableHead(['name' ,'buying price', 'selling price','date']))
 
-    TradeDetails.append(tradeTable)
-    return TradeDetails
+   try {
+     getDocuments('trade').then(
+        obj => {
+           
+            Object.keys(obj).forEach(key=>{
+                console.log(obj[key])
+                tradeTable.append(createTableRow([obj[key]['name'] ,obj[key]['buyingPrice'], obj[key]['sellingPrice'] , obj[key]['date']]))
+            })
+            
+        }
+     )
+   }
+   catch {
+    tradeTable.append(createTableRow([' ' ,' ', ' ']))
+   }
+ return tradeTable
+}
+
+export function  ViewTradeDetails(){
+
+    
+    let TradeDetail = document.createElement('div')
+    let title = document.createElement('p')
+    title.innerHTML = 'Trade   Details '
+    TradeDetail.append(title)
+     
+    let showButton = document.createElement('button')
+    showButton.innerHTML = 'show trade details'
+
+    showButton.addEventListener('click' , ()=>{
+        TradeDetail.append(TradeDetails())
+    })
+    TradeDetail.append(showButton)
+    return TradeDetail
+}
+
+async function drawChart() {
+    // Set Data
+     let dataAndAmount = [ 
+        
+        ['Price', 'Size'],
+    
+    ]
+
+    
+    await getDocuments('trade').then(
+           obj => {
+              
+               Object.keys(obj).forEach(key=>{
+                dataAndAmount.push([ obj[key]['date']  , parseInt(obj[key]['buyingPrice']) ] )
+               })
+               
+           }
+        )
+     
+      
+   
+
+        
+ console.log(dataAndAmount)
+    let data = google.visualization.arrayToDataTable(dataAndAmount);
+    // Set Options
+    var options = {
+       title: 'date and buying price',
+      hAxis: {title: 'date'},
+      vAxis: {title: 'amount in rupees'},
+       legend: 'none'
+    };
+    // Draw
+    let chart = new google.visualization.ScatterChart(document.getElementById('chart'));
+    chart.draw(data, options);
+    }
+
+export function monthlyCharts(){
+    let graph = document.createElement('div')
+    graph.setAttribute('id','chart')
+
+    google.charts.load('current',{packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+ 
+    return graph
 }

@@ -24,7 +24,7 @@
         
     } from './ui.js'
 
- import { getDocuments } from "./database.js";
+ 
  // Your web app's Firebase configuration
  const firebaseConfig = {
    apiKey: "AIzaSyDr1fNDRp_XMJHmqrmEhQyLpi3KxF-7rLQ",
@@ -64,7 +64,3 @@
     }
   });
 
-
-  
-
-getDocuments('trade')
