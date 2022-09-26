@@ -5,7 +5,7 @@ import { showErrorMessage } from './helper.js'
 
 import { tradingDetailsForm ,ViewTradeDetails,monthlyCharts} from './app.js'
 
-
+import { emptyElement } from './helper.js'
  function createNav() {
     let nav = document.createElement('nav')
     return nav
@@ -100,21 +100,14 @@ export  function showLogin(){
 
 
 }
-function emptyElement(element){
-    if (element.childElementCount){
-        while (element.childElementCount > 0)
-    {
-      element.firstChild.remove()
-    }
-    }
-    
-}
+
 export  function hideLogin() {
  
     let logindiv = document.getElementById('logIn')
-    emptyElement(logindiv)
+   
     if (logindiv){
-    logindiv.style.display= 'none'
+        emptyElement(logindiv)
+        logindiv.style.display= 'none'
     
     }
    

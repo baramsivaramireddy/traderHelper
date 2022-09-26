@@ -17,16 +17,8 @@ import {
   } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js";
 
 import {db,app  } from './index.js'
-function emptyElement(element){
-    if (!element.childElementCount){
-        while (element.childElementCount > 0)
-    {
-      element.firstChild.remove()
-    }
-    }
-    
-}
 
+import { emptyElement } from './helper.js'
 export function tradingDetailsForm(){
 
     let addTradeDetails = document.createElement('div')

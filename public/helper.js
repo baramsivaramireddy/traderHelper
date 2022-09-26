@@ -3,3 +3,12 @@ export function showErrorMessage(message){
     messageDiv.innerHTML = message
 }
 
+export function emptyElement(element){
+    if (element.childElementCount){
+        while (element.childElementCount > 0)
+    {
+      element.firstChild.remove()
+    }
+    }
+    
+}
