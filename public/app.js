@@ -18,14 +18,14 @@ import {
 
 import {db,app  } from './index.js'
 function emptyElement(element){
-    if (element.childElementCount){
+    if (!element.childElementCount){
         while (element.childElementCount > 0)
     {
       element.firstChild.remove()
     }
     }
     
-  }
+}
 
 export function tradingDetailsForm(){
 
@@ -136,20 +136,20 @@ function   TradeDetails() {
     
 
     let tradeTable = document.createElement('table')
-    tradeTable.setAttribute('class','tradeTable')
-    tradeTable.setAttribute('class','table table-bordered mx-5  mr-5 table-sm  table-responsive')
-    
+    tradeTable.setAttribute('id','tradeTable')
+    tradeTable.setAttribute('class','table table-bordered  table-sm  table-responsive')
+   
     tradeTable.append( createTableHead(['name' ,'buying price', 'selling price','date']))
 
    try {
      getDocuments('trade').then(
         obj => {
-           
+            
             Object.keys(obj).forEach(key=>{
              console.log(obj[key])
                 tradeTable.append(createTableRow([obj[key]['name'] ,obj[key]['buyingPrice'], obj[key]['sellingPrice'] , obj[key]['date']]))
             })
-            emptyElement(document.getElementsByClassName('tradeTable'))
+            
             
         }
      )
@@ -172,19 +172,9 @@ export function  ViewTradeDetails(){
     title.classList.add('mt-3')
     TradeDetail.append(title)
      
-    let showButton = document.createElement('button')
-    showButton.innerHTML = 'show trade details'
-    showButton.setAttribute('class','btn mx-3  btn-outline-dark')
-
-    showButton.addEventListener('click' , ()=>{
-   
-        
-        TradeDetail.append(TradeDetails())
-       
-      
-
-    })
-    TradeDetail.append(showButton)
+    
+    TradeDetail.append(TradeDetails())
+    
     return TradeDetail
 }
 

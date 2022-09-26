@@ -108,10 +108,11 @@ function emptyElement(element){
     }
     }
     
-  }
+}
 export  function hideLogin() {
  
     let logindiv = document.getElementById('logIn')
+    emptyElement(logindiv)
     if (logindiv){
     logindiv.style.display= 'none'
     
@@ -173,6 +174,7 @@ export  function hideSignUp(){
 
    let signUpdiv = document.getElementById('signUp')
    if (signUpdiv){
+    emptyElement(signUpdiv)
    signUpdiv.style.display='none'   
 }
 }

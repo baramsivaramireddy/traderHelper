@@ -49,13 +49,14 @@
       // User is signed in, 
       const uid = user.uid;
       
-      console.log(user)
+    
         
         showApp()
         hideLogin()
         hideSignUp()
   
     } else {
+
       // User is signed out
      
       hideApp()
